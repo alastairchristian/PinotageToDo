@@ -12,4 +12,12 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\todomvc-app-css\" />
+    <Folder Include="wwwroot\lib\todomvc-common\" />
+    <Folder Include="wwwroot\lib\director\" />
+    <Folder Include="wwwroot\lib\director\build\" />
+    <Folder Include="wwwroot\lib\handlebars\" />
+    <Folder Include="wwwroot\lib\handlebars\dist\" />
+  </ItemGroup>
 </Project>
