@@ -37,18 +37,28 @@ namespace PinotageTodo.Web
             var certificatePassword = certificateSettings.GetValue<string>("password");
             var cert = new X509Certificate2(certificateFileName, certificatePassword);
 
+            var isDevelopment = config.GetValue<string>("ASPNETCORE_ENVIRONMENT").Equals("Development", StringComparison.OrdinalIgnoreCase);
 
-            return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseKestrel(options => 
-                {
-                    options.AddServerHeader = false;
-                    options.Listen(IPAddress.Loopback, 14433, listenOptions =>
+            if (isDevelopment)
+            {
+                return WebHost.CreateDefaultBuilder(args)
+                    .UseStartup<Startup>()
+                    .UseKestrel(options =>
                     {
-                        listenOptions.UseHttps(cert);
-                    });    
-                })
-                .Build();
+                        options.AddServerHeader = false;
+                        options.Listen(IPAddress.Loopback, 14433, listenOptions =>
+                        {
+                            listenOptions.UseHttps(cert);
+                        });
+                    })
+                    .Build();
+            }
+            else
+            {
+				return WebHost.CreateDefaultBuilder(args)
+					.UseStartup<Startup>()
+					.Build();
+            }
         }
     }
 }
