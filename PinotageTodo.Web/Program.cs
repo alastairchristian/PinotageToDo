@@ -32,15 +32,15 @@ namespace PinotageTodo.Web
 
         public static IWebHost BuildWebHost(string[] args, IConfigurationRoot config)
         {
-            var certificateSettings = config.GetSection("certificateSettings");
-            var certificateFileName = certificateSettings.GetValue<string>("filename");
-            var certificatePassword = certificateSettings.GetValue<string>("password");
-            var cert = new X509Certificate2(certificateFileName, certificatePassword);
-
             var isDevelopment = config.GetValue<string>("ASPNETCORE_ENVIRONMENT").Equals("Development", StringComparison.OrdinalIgnoreCase);
 
             if (isDevelopment)
             {
+				var certificateSettings = config.GetSection("certificateSettings");
+				var certificateFileName = certificateSettings.GetValue<string>("filename");
+				var certificatePassword = certificateSettings.GetValue<string>("password");
+				var cert = new X509Certificate2(certificateFileName, certificatePassword);
+
                 return WebHost.CreateDefaultBuilder(args)
                     .UseStartup<Startup>()
                     .UseKestrel(options =>
