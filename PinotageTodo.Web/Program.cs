@@ -32,9 +32,9 @@ namespace PinotageTodo.Web
 
         public static IWebHost BuildWebHost(string[] args, IConfigurationRoot config)
         {
-            var isDevelopment = config.GetValue<string>("ASPNETCORE_ENVIRONMENT").Equals("Development", StringComparison.OrdinalIgnoreCase);
+            var isDevelopment = config.GetValue<string>("ASPNETCORE_ENVIRONMENT")?.Equals("Development", StringComparison.OrdinalIgnoreCase);
 
-            if (isDevelopment)
+            if (isDevelopment.HasValue && isDevelopment.Value == true)
             {
 				var certificateSettings = config.GetSection("certificateSettings");
 				var certificateFileName = certificateSettings.GetValue<string>("filename");
