@@ -4,8 +4,8 @@ namespace PinotageTodo.Web.Models
 {
     public class TodoApiModel
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool IsCompleted { get; set; }
+        public Guid id { get; set; }
+        public string title { get; set; }
+        public bool completed { get; set; }
     }
 }

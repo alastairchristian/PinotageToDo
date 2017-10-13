@@ -20,8 +20,8 @@ namespace PinotageTodo.Web.Controllers
             
             return new List<TodoApiModel>()
             {
-                new TodoApiModel() { Id = Guid.NewGuid(), Name = "Todo 1", IsCompleted = false },
-                new TodoApiModel() { Id = Guid.NewGuid(), Name = "Todo 2", IsCompleted = true }
+                new TodoApiModel() { id = Guid.NewGuid(), title = "Todo 1", completed = false },
+                new TodoApiModel() { id = Guid.NewGuid(), title = "Todo 2", completed = true }
             };
         }
 
@@ -33,21 +33,22 @@ namespace PinotageTodo.Web.Controllers
 				return BadRequest();
 			}
 
-			return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+			return CreatedAtRoute("GetTodo", new { id = item.id }, item);
 		}
 
         [HttpGet("{id}", Name = "GetTodo")]
         public IActionResult Get(Guid id)
         {
-            var model = new TodoApiModel() { Id = id, Name = "I'm a stub", IsCompleted = false };
+            var model = new TodoApiModel() { id = id, title = "I'm a stub", completed = false };
             return new ObjectResult(model);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] TodoApiModel item)
         {
+            // this is an example of how to get the userId
             var userId = HttpContext.User.Claims.First(c => c.Type.Equals(ClaimTypes.Name)).Value;
-            if (item == null || item.Id != id)
+            if (item == null || item.id != id)
             {
                 return BadRequest();
             }

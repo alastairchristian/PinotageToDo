@@ -38,20 +38,51 @@ jQuery(function ($) {
         }
     };
 
+    var service = {
+
+        init: function() {
+            if (!(typeof Cookies.get('.AspNetCore.defaultCookieAuthScheme') === 'undefined')) {
+                $.get("api/account/register");
+            }
+        },
+
+        getAll: function(handler) {
+            $.get("api/todos" , function(data) {
+                handler(data);
+            });
+        }
+
+    };
+
     var App = {
         init: function () {
+            var self = this;
             this.todos = util.store('todos-jquery');
-            this.todoTemplate = Handlebars.compile($('#todo-template').html());
-            this.footerTemplate = Handlebars.compile($('#footer-template').html());
-            this.bindEvents();
+            service.init();
+            service.getAll(function(output) {
+                self.todos = output;
+                self.todoTemplate = Handlebars.compile($('#todo-template').html());
+                self.footerTemplate = Handlebars.compile($('#footer-template').html());
+                self.bindEvents();
 
+                new Router({
+                    '/:filter': function (filter) {
+                        self.filter = filter;
+                        self.render();
+                    }.bind(self)
+                }).init('/all');
+            });
+
+            /*
             new Router({
                 '/:filter': function (filter) {
                     this.filter = filter;
                     this.render();
                 }.bind(this)
             }).init('/all');
+            */
         },
+
         bindEvents: function () {
             $('#new-todo').on('keyup', this.create.bind(this));
             $('#toggle-all').on('change', this.toggleAll.bind(this));
