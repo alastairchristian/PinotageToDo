@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using PinotageTodo.Web.Models;
 
 namespace PinotageTodo.Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class TodosController : Controller
     {
         [HttpGet]
         public IEnumerable<TodoApiModel> GetAll()
         {
+            
             return new List<TodoApiModel>()
             {
                 new TodoApiModel() { Id = Guid.NewGuid(), Name = "Todo 1", IsCompleted = false },
@@ -42,6 +46,7 @@ namespace PinotageTodo.Web.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] TodoApiModel item)
         {
+            var userId = HttpContext.User.Claims.First(c => c.Type.Equals(ClaimTypes.Name)).Value;
             if (item == null || item.Id != id)
             {
                 return BadRequest();
