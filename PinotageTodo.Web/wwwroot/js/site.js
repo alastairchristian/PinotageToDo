@@ -50,7 +50,25 @@ jQuery(function ($) {
             $.get("api/todos" , function(data) {
                 handler(data);
             });
+        },
+
+        create: function(todo, handler) {
+            $.ajax({
+                url: 'api/todos/add', 
+                type: 'POST',
+                data: JSON.stringify(todo),
+                processData: false,
+                contentType: "application/json"})
+                    .done(function(data) {
+                        handler(data);
+                    });
         }
+
+        /*
+        update: function(todo, handler) {
+            $.ajax("api/todos")
+        },
+        */
 
     };
 
@@ -72,15 +90,6 @@ jQuery(function ($) {
                     }.bind(self)
                 }).init('/all');
             });
-
-            /*
-            new Router({
-                '/:filter': function (filter) {
-                    this.filter = filter;
-                    this.render();
-                }.bind(this)
-            }).init('/all');
-            */
         },
 
         bindEvents: function () {
@@ -164,6 +173,8 @@ jQuery(function ($) {
             }
         },
         create: function (e) {
+
+            var self = this;
             var $input = $(e.target);
             var val = $input.val().trim();
 
@@ -171,6 +182,15 @@ jQuery(function ($) {
                 return;
             }
 
+            var todo = { id: util.uuid(), title: val, completed: false };
+
+            service.create(todo, function(output) {
+                self.todos.push(todo);
+                $input.val('');
+                self.render();
+            });
+
+            /*
             this.todos.push({
                 id: util.uuid(),
                 title: val,
@@ -180,6 +200,7 @@ jQuery(function ($) {
             $input.val('');
 
             this.render();
+            */
         },
         toggle: function (e) {
             var i = this.getIndexFromEl(e.target);
