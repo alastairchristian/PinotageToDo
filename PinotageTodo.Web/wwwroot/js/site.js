@@ -207,9 +207,20 @@ jQuery(function ($) {
         },
 
         toggle: function (e) {
+            var self = this;
             var i = this.getIndexFromEl(e.target);
+            var todo = this.todos[i];
+            todo.completed = !todo.completed;
+
+            service.update(todo, function(output) {
+                self.todos[i] = todo;
+                self.render();
+            });
+
+            /*
             this.todos[i].completed = !this.todos[i].completed;
             this.render();
+            */
         },
 
         editingMode: function (e) {
