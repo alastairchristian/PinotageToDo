@@ -62,13 +62,19 @@ jQuery(function ($) {
                     .done(function(data) {
                         handler(data);
                     });
-        }
-
-        /*
-        update: function(todo, handler) {
-            $.ajax("api/todos")
         },
-        */
+
+        update: function(todo, handler) {
+            $.ajax({
+                url: 'api/todos/' + todo.id, 
+                type: 'PUT',
+                data: JSON.stringify(todo),
+                processData: false,
+                contentType: "application/json"})
+                    .done(function(data) {
+                        handler(data);
+                    });
+        }
 
     };
 
@@ -103,6 +109,7 @@ jQuery(function ($) {
                 .on('focusout', '.edit', this.update.bind(this))
                 .on('click', '.destroy', this.destroy.bind(this));
         },
+
         render: function () {
             var todos = this.getFilteredTodos();
             $('#todo-list').html(this.todoTemplate(todos));
@@ -112,6 +119,7 @@ jQuery(function ($) {
             $('#new-todo').focus();
             util.store('todos-jquery', this.todos);
         },
+
         renderFooter: function () {
             var todoCount = this.todos.length;
             var activeTodoCount = this.getActiveTodos().length;
@@ -124,6 +132,7 @@ jQuery(function ($) {
 
             $('#footer').toggle(todoCount > 0).html(template);
         },
+
         toggleAll: function (e) {
             var isChecked = $(e.target).prop('checked');
 
@@ -133,16 +142,19 @@ jQuery(function ($) {
 
             this.render();
         },
+
         getActiveTodos: function () {
             return this.todos.filter(function (todo) {
                 return !todo.completed;
             });
         },
+
         getCompletedTodos: function () {
             return this.todos.filter(function (todo) {
                 return todo.completed;
             });
         },
+
         getFilteredTodos: function () {
             if (this.filter === 'active') {
                 return this.getActiveTodos();
@@ -154,11 +166,13 @@ jQuery(function ($) {
 
             return this.todos;
         },
+
         destroyCompleted: function () {
             this.todos = this.getActiveTodos();
             this.filter = 'all';
             this.render();
         },
+
         // accepts an element from inside the `.item` div and
         // returns the corresponding index in the `todos` array
         getIndexFromEl: function (el) {
@@ -172,6 +186,7 @@ jQuery(function ($) {
                 }
             }
         },
+
         create: function (e) {
 
             var self = this;
@@ -189,28 +204,19 @@ jQuery(function ($) {
                 $input.val('');
                 self.render();
             });
-
-            /*
-            this.todos.push({
-                id: util.uuid(),
-                title: val,
-                completed: false
-            });
-
-            $input.val('');
-
-            this.render();
-            */
         },
+
         toggle: function (e) {
             var i = this.getIndexFromEl(e.target);
             this.todos[i].completed = !this.todos[i].completed;
             this.render();
         },
+
         editingMode: function (e) {
             var $input = $(e.target).closest('li').addClass('editing').find('.edit');
             $input.val($input.val()).focus();
         },
+
         editKeyup: function (e) {
             if (e.which === ENTER_KEY) {
                 e.target.blur();
@@ -220,7 +226,9 @@ jQuery(function ($) {
                 $(e.target).data('abort', true).blur();
             }
         },
+
         update: function (e) {
+            var self = this;
             var el = e.target;
             var $el = $(el);
             var val = $el.val().trim();
@@ -232,12 +240,18 @@ jQuery(function ($) {
 
             if ($el.data('abort')) {
                 $el.data('abort', false);
+                this.render();
             } else {
-                this.todos[this.getIndexFromEl(el)].title = val;
-            }
+                var todo = this.todos[this.getIndexFromEl(el)];
+                todo.title = val;
+                service.update(todo, function(output) {
+                    self.todos[self.getIndexFromEl(el)].title = val;
+                    self.render();
+                });
 
-            this.render();
+            }
         },
+
         destroy: function (e) {
             this.todos.splice(this.getIndexFromEl(e.target), 1);
             this.render();
