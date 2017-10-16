@@ -19,5 +19,6 @@
     <Folder Include="wwwroot\lib\director\build\" />
     <Folder Include="wwwroot\lib\handlebars\" />
     <Folder Include="wwwroot\lib\handlebars\dist\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
 </Project>
