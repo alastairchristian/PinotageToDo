@@ -59,9 +59,9 @@ jQuery(function ($) {
                 data: JSON.stringify(todo),
                 processData: false,
                 contentType: "application/json"})
-                    .done(function(data) {
-                        handler(data);
-                    });
+                .done(function(data) {
+                    handler(data);
+                });
         },
 
         update: function(todo, handler) {
@@ -71,9 +71,18 @@ jQuery(function ($) {
                 data: JSON.stringify(todo),
                 processData: false,
                 contentType: "application/json"})
-                    .done(function(data) {
-                        handler(data);
-                    });
+                .done(function(data) {
+                    handler(data);
+                });
+        },
+
+        delete: function(id, handler) {
+            $.ajax({
+                url: 'api/todos/' + id, 
+                type: 'DELETE' })
+                .done(function(data) {
+                    handler(data);
+                });
         }
 
     };
@@ -259,8 +268,13 @@ jQuery(function ($) {
         },
 
         destroy: function (e) {
-            this.todos.splice(this.getIndexFromEl(e.target), 1);
-            this.render();
+            var self = this;
+            var todo = this.todos[this.getIndexFromEl(e.target)];
+
+            service.delete(todo.id, function(output) {
+                self.todos.splice(self.getIndexFromEl(e.target), 1);
+                self.render();
+            });
         }
     };
 
