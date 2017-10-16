@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using PinotageTodo.Data.Models;
 
@@ -26,7 +27,7 @@ namespace PinotageTodo.Data.Repository.EF
 
         public IEnumerable<TodoDataModel> GetAll(Guid userId)
         {
-            throw new NotImplementedException();
+            return _todoContext.TodoItems.Where(t => t.UserId.Equals(userId));
         }
 
         public void Update(TodoDataModel model)
