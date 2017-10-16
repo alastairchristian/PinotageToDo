@@ -51,7 +51,7 @@ namespace PinotageTodo
             });
 
             // register Pinotage services
-            services.AddTransient<ITodoRepository, EFTodoRepository>();
+            services.AddScoped<ITodoRepository, EFTodoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

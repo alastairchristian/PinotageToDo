@@ -17,20 +17,37 @@ namespace PinotageTodo.Controllers
     {
         private readonly ITodoRepository _todoRepository;
 
+        public Func<string> UserId;
+
         public TodosController(ITodoRepository todoRepository)
         {
             _todoRepository = todoRepository;
+
+            UserId = () => HttpContext.User.Claims.First(c => c.Type.Equals(ClaimTypes.Name)).Value;
         }
 
         [HttpGet]
         public IEnumerable<TodoApiModel> GetAll()
         {
-            
-            return new List<TodoApiModel>()
+            var userId = GetUserIdFromContext();
+
+            var returnList = new List<TodoApiModel>();
+
+            var dataModels = _todoRepository.GetAll(userId);
+            if (dataModels != null)
             {
-                new TodoApiModel() { id = Guid.NewGuid(), title = "Todo 1", completed = false },
-                new TodoApiModel() { id = Guid.NewGuid(), title = "Todo 2", completed = true }
-            };
+                foreach (var dataModel in dataModels)
+                {
+                    returnList.Add(new TodoApiModel()
+                    {
+                        id = dataModel.Id,
+                        title = dataModel.Title,
+                        completed = dataModel.IsCompleted
+                    });
+                }
+            }
+
+            return returnList;
         }
 
 		[HttpPost("add", Name = "AddTodo")]
@@ -68,6 +85,25 @@ namespace PinotageTodo.Controllers
         public IActionResult Delete(Guid id)
         {
             return new NoContentResult();
+        }
+
+        private Guid GetUserIdFromContext()
+        {
+            string userIdString = UserId();
+
+            if (string.IsNullOrWhiteSpace(UserId()))
+            {
+                throw new InvalidOperationException("No userId found in the ClaimsPrincipal");
+            }
+
+            Guid userId;
+
+            if (!Guid.TryParse(userIdString, out userId))
+            {
+                throw new InvalidOperationException("Could not convert userId in ClaimsPrincipal to a guid");
+            }
+
+            return userId;
         }
     }
 }
