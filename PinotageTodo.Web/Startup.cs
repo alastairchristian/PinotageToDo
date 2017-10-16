@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PinotageTodo.Data.Repository;
 using PinotageTodo.Data.Repository.EF;
 
-namespace PinotageTodo.Web
+namespace PinotageTodo
 {
     public class Startup
     {

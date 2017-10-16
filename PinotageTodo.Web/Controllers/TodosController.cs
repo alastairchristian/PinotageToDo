@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using PinotageTodo.Data.Repository;
-using PinotageTodo.Web.Models;
+using PinotageTodo.Models;
 
-namespace PinotageTodo.Web.Controllers
+namespace PinotageTodo.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

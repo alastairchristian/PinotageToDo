@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinotageTodo.Web", "PinotageTodo.Web\PinotageTodo.Web.csproj", "{1E25FA09-6E77-4E85-8EAB-9DE0A0E4F143}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinotageTodo", "PinotageTodo.Web\PinotageTodo.csproj", "{1E25FA09-6E77-4E85-8EAB-9DE0A0E4F143}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinotageTodo.Tests", "PinotageTodo.Tests\PinotageTodo.Tests.csproj", "{505E46F5-0A00-4CBC-BBBA-95D3365B5FC3}"
 EndProject

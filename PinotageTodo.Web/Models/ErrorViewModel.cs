@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace PinotageTodo.Web.Models
+namespace PinotageTodo.Models
 {
     public class ErrorViewModel
     {
