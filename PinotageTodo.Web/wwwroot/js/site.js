@@ -216,11 +216,6 @@ jQuery(function ($) {
                 self.todos[i] = todo;
                 self.render();
             });
-
-            /*
-            this.todos[i].completed = !this.todos[i].completed;
-            this.render();
-            */
         },
 
         editingMode: function (e) {

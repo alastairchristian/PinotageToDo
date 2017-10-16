@@ -14,8 +14,6 @@
                 <input id="new-todo" placeholder="What needs to be done?" autofocus>
             </header>
             <section id="main">
-                <input id="toggle-all" type="checkbox">
-                <label for="toggle-all">Mark all as complete</label>
                 <ul id="todo-list"></ul>
             </section>
             <footer id="footer"></footer>
@@ -50,7 +48,7 @@
                     <a {{#eq filter 'completed'}}class="selected"{{/eq}}href="#/completed">Completed</a>
                 </li>
             </ul>
-            {{#if completedTodos}}<button id="clear-completed">Clear completed</button>{{/if}}
+
         </script>
         <script src="~/lib/todomvc-common/base.js"></script>
         <script src="~/lib/jquery/dist/jquery.js"></script>
