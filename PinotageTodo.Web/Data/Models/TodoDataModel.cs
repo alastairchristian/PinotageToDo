@@ -1,5 +1,6 @@
 ﻿using System;
-namespace PinotageTodo.Web.Models
+
+namespace PinotageTodo.Data.Models
 {
     public class TodoDataModel
     {

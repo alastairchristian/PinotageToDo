@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using PinotageTodo.Data.Repository;
 using PinotageTodo.Web.Models;
 
 namespace PinotageTodo.Web.Controllers
@@ -14,6 +15,13 @@ namespace PinotageTodo.Web.Controllers
     [Route("api/[controller]")]
     public class TodosController : Controller
     {
+        private readonly ITodoRepository _todoRepository;
+
+        public TodosController(ITodoRepository todoRepository)
+        {
+            _todoRepository = todoRepository;
+        }
+
         [HttpGet]
         public IEnumerable<TodoApiModel> GetAll()
         {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using PinotageTodo.Web.Models;
+using PinotageTodo.Data.Models;
 
-namespace PinotageTodo.Web.Repository
+namespace PinotageTodo.Data.Repository
 {
     public interface ITodoRepository
     {

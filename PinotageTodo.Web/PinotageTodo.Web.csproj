@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,9 @@
     <Folder Include="wwwroot\lib\director\build\" />
     <Folder Include="wwwroot\lib\handlebars\" />
     <Folder Include="wwwroot\lib\handlebars\dist\" />
-    <Folder Include="Repository\" />
+    <Folder Include="Data\" />
+    <Folder Include="Data\Models\" />
+    <Folder Include="Data\Repository\" />
+    <Folder Include="Data\Repository\EF\" />
   </ItemGroup>
 </Project>
