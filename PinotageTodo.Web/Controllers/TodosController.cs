@@ -101,6 +101,15 @@ namespace PinotageTodo.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
+            var userId = GetUserIdFromContext();
+
+            if (id.Equals(Guid.Empty))
+            {
+                return BadRequest();
+            }
+            
+            _todoRepository.Delete(id, userId);
+            
             return new NoContentResult();
         }
 
