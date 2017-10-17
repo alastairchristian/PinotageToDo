@@ -30,6 +30,11 @@ namespace PinotageTodo.Data.Repository.EF
             return _todoContext.TodoItems.Where(t => t.UserId.Equals(userId));
         }
 
+        public TodoDataModel Get(Guid id, Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(TodoDataModel model)
         {
             throw new NotImplementedException();

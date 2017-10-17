@@ -72,7 +72,27 @@ namespace PinotageTodo.Controllers
         [HttpGet("{id}", Name = "GetTodo")]
         public IActionResult Get(Guid id)
         {
-            var model = new TodoApiModel() { id = id, title = "I'm a stub", completed = false };
+            var userId = GetUserIdFromContext();
+            
+            if (id.Equals(Guid.Empty))
+            {
+                return BadRequest();
+            }
+
+            var dataModel = _todoRepository.Get(id, userId);
+
+            if (dataModel == null)
+            {
+                return NotFound();
+            }
+            
+            var model = new TodoApiModel
+            {
+                id = dataModel.Id, 
+                title = dataModel.Title, 
+                completed = dataModel.IsCompleted                 
+            };
+            
             return new ObjectResult(model);
         }
 

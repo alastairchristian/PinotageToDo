@@ -13,6 +13,8 @@ namespace PinotageTodo.Data.Repository
 
         void Delete(Guid id, Guid userId);
 
+        TodoDataModel Get(Guid id, Guid userId);
+
         IEnumerable<TodoDataModel> GetAll(Guid userId);
     }
 }
