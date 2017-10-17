@@ -17,12 +17,15 @@ namespace PinotageTodo.Data.Repository.EF
 
         public void Add(TodoDataModel model)
         {
-            throw new NotImplementedException();
+            _todoContext.TodoItems.Add(model);
+            _todoContext.SaveChanges();
         }
 
         public void Delete(Guid id, Guid userId)
         {
-            throw new NotImplementedException();
+            var model = Get(id, userId);
+            _todoContext.TodoItems.Remove(model);
+            _todoContext.SaveChanges();
         }
 
         public IEnumerable<TodoDataModel> GetAll(Guid userId)
@@ -32,12 +35,24 @@ namespace PinotageTodo.Data.Repository.EF
 
         public TodoDataModel Get(Guid id, Guid userId)
         {
-            throw new NotImplementedException();
+            return _todoContext.TodoItems.SingleOrDefault(
+                t => t.UserId.Equals(userId) && t.Id.Equals(id));
         }
 
         public void Update(TodoDataModel model)
         {
-            throw new NotImplementedException();
+            var existingModel = Get(model.Id, model.UserId);
+
+            if (existingModel == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            existingModel.Title = model.Title;
+            existingModel.IsCompleted = model.IsCompleted;
+
+            _todoContext.TodoItems.Update(existingModel);
+            _todoContext.SaveChanges();
         }
     }
 }
