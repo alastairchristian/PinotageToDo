@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 using Moq;
 using Xunit;
-using FluentAssertions;
-
-using PinotageTodo.Models;
-using PinotageTodo.Data.Models;
 
 namespace PinotageTodo.Tests.Controllers.TodosControllerTests
 {
