@@ -11,13 +11,13 @@ using PinotageTodo.Data.Repository;
 
 namespace PinotageTodo.Tests.Controllers.TodosControllerTests
 {
-    public partial class TodosControllerTests
+    public class TodosControllerTests
     {
-        private readonly Mock<ITodoRepository> _mockTodoRepository;
+        internal readonly Mock<ITodoRepository> _mockTodoRepository;
 
-        private Guid _testUserId = Guid.NewGuid();
+        internal Guid _testUserId = Guid.NewGuid();
 
-        private TodosController _objectUnderTest;
+        internal TodosController _objectUnderTest;
 
         public TodosControllerTests()
         {
@@ -25,12 +25,6 @@ namespace PinotageTodo.Tests.Controllers.TodosControllerTests
             _objectUnderTest = new TodosController(_mockTodoRepository.Object);
 
             _objectUnderTest.UserId = () => { return _testUserId.ToString(); };
-        }
-
-        [Fact]
-        public void Can_Instantiate_Controller()
-        {
-            Assert.NotNull(_objectUnderTest);
         }
 
         private ClaimsPrincipal CreateTestUser(Guid userId)

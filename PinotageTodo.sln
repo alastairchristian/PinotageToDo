@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinotageTodo", "PinotageTod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinotageTodo.Tests", "PinotageTodo.Tests\PinotageTodo.Tests.csproj", "{505E46F5-0A00-4CBC-BBBA-95D3365B5FC3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - src", "1 - src", "{773A8016-55A2-437F-BCF3-5539A6D805C3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{773A8016-55A2-437F-BCF3-5539A6D805C3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - tests", "5 - tests", "{3DAE144E-A4C8-44CA-BCFC-4C302AE6FB41}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3DAE144E-A4C8-44CA-BCFC-4C302AE6FB41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
