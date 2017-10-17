@@ -58,7 +58,7 @@ namespace PinotageTodo.Controllers
 			}
 		    
 		    _todoRepository.Add(
-		        new TodoDataModel()
+		        new TodoDataModel
 		        {
 		            Id = item.id,
 		            Title = item.title,
@@ -79,10 +79,21 @@ namespace PinotageTodo.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] TodoApiModel item)
         {
-            if (item == null || item.id != id)
+            var userId = GetUserIdFromContext();
+            
+            if (item == null || item.id != id || string.IsNullOrWhiteSpace(item.title))
             {
                 return BadRequest();
             }
+            
+            _todoRepository.Update(
+                new TodoDataModel
+                {
+                    Id = item.id,
+                    Title = item.title,
+                    IsCompleted = item.completed,
+                    UserId = userId
+                });
 
             return new NoContentResult();
         }
