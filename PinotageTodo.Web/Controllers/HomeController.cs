@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PinotageTodo.Web.Models;
+using PinotageTodo.Models;
 
-namespace PinotageTodo.Web.Controllers
+namespace PinotageTodo.Controllers
 {
     public class HomeController : Controller
     {

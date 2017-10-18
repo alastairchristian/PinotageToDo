@@ -41,7 +41,7 @@ jQuery(function ($) {
     var service = {
 
         init: function() {
-            if (!(typeof Cookies.get('.AspNetCore.defaultCookieAuthScheme') === 'undefined')) {
+            if ((Cookies.get('.AspNetCore.defaultCookieAuthScheme') === 'undefined')) {
                 $.get("api/account/register");
             }
         },
