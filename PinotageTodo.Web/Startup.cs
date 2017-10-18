@@ -38,6 +38,7 @@ namespace PinotageTodo
                         options.SlidingExpiration = true;
                         options.ExpireTimeSpan = new TimeSpan(30, 0, 0, 0, 0);
                         options.Cookie.HttpOnly = true;
+                        options.Cookie.Expiration = new TimeSpan(30, 0, 0, 0, 0);
                         options.Events.OnRedirectToLogin = (context) =>
                         {
                             context.Response.StatusCode = 401;

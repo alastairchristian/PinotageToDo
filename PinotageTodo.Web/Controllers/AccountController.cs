@@ -30,7 +30,13 @@ namespace PinotageTodo.Controllers
             var userIdentity = new ClaimsIdentity(claims, "login");
 
             var principal = new ClaimsPrincipal(userIdentity);
-            await HttpContext.SignInAsync("defaultCookieAuthScheme", principal);
+            await HttpContext.SignInAsync(
+                "defaultCookieAuthScheme", 
+                principal, 
+                new AuthenticationProperties
+                {
+                    IsPersistent = true
+                });
 
             return new OkResult();
         }
