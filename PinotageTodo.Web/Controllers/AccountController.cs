@@ -16,6 +16,10 @@ namespace PinotageTodo.Controllers
         [HttpGet("register")]
         public async Task<IActionResult> RegisterAsync()
         {
+            // for our current example we issue a long-lived auth cookie and on every refresh 
+            // of the app we check here for its existence. If it doesn't exist we create it.
+            if (HttpContext.User.Claims.Any(c => c.Type.Equals(ClaimTypes.Name))) return new OkResult();
+            
             var id = Guid.NewGuid();
 
             var claims = new List<Claim>
@@ -25,7 +29,7 @@ namespace PinotageTodo.Controllers
 
             var userIdentity = new ClaimsIdentity(claims, "login");
 
-            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            var principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync("defaultCookieAuthScheme", principal);
 
             return new OkResult();
