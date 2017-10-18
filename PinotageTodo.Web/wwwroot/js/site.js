@@ -40,8 +40,10 @@ jQuery(function ($) {
 
     var service = {
 
-        init: function() {
-            $.get("api/account/register");
+        init: function(handler) {
+            $.get("api/account/register", function(data) {
+                handler();
+            });
         },
 
         getAll: function(handler) {
@@ -89,19 +91,20 @@ jQuery(function ($) {
         init: function () {
             var self = this;
             this.todos = util.store('todos-jquery');
-            service.init();
-            service.getAll(function(output) {
-                self.todos = output;
-                self.todoTemplate = Handlebars.compile($('#todo-template').html());
-                self.footerTemplate = Handlebars.compile($('#footer-template').html());
-                self.bindEvents();
-
-                new Router({
-                    '/:filter': function (filter) {
-                        self.filter = filter;
-                        self.render();
-                    }.bind(self)
-                }).init('/all');
+            service.init(function() {
+                service.getAll(function(output) {
+                    self.todos = output;
+                    self.todoTemplate = Handlebars.compile($('#todo-template').html());
+                    self.footerTemplate = Handlebars.compile($('#footer-template').html());
+                    self.bindEvents();
+    
+                    new Router({
+                        '/:filter': function (filter) {
+                            self.filter = filter;
+                            self.render();
+                        }.bind(self)
+                    }).init('/all');
+                });
             });
         },
 
